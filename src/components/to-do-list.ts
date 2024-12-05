@@ -49,6 +49,8 @@ export class ToDoList extends LitElement {
     }
   `;
 
+  
+
   addTask() {
     if (this.newTask.trim() !== "") {
       this.tasks = [...this.tasks, this.newTask.trim()];
@@ -68,6 +70,12 @@ export class ToDoList extends LitElement {
       this.addTask();
     }
   }
+
+  saveTasksToLocalStorage() {
+    localStorage.setItem("tasks", JSON.stringify(this.tasks));
+  }
+
+  // TODO loadTasksFromLocalStorage
 
   render() {
     return html`
