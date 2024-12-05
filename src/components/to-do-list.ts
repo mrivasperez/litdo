@@ -75,7 +75,12 @@ export class ToDoList extends LitElement {
     localStorage.setItem("tasks", JSON.stringify(this.tasks));
   }
 
-  // TODO loadTasksFromLocalStorage
+  loadTasksFromLocalStorage() {
+    const storedTasks = localStorage.getItem("tasks");
+    if (storedTasks) {
+      this.tasks = JSON.parse(storedTasks);
+    }
+  }
 
   render() {
     return html`
