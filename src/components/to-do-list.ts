@@ -4,7 +4,7 @@ import { customElement, property } from "lit/decorators.js";
 @customElement("to-do-list")
 export class ToDoList extends LitElement {
   @property({ type: Array }) tasks: string[] = ["Brush teeth", "Wash dishes"];
-  @property({ type: String }) newTask = "";
+  @property({ type: String }) newTask:string = "";
 
   static styles = css`
     .container {
@@ -49,7 +49,12 @@ export class ToDoList extends LitElement {
     }
   `;
 
-  // TODO addTask
+  addTask() {
+    if (this.newTask.trim() !== "") {
+      this.tasks = [...this.tasks, this.newTask.trim()];
+      this.newTask = "";
+    }
+  }
   // TODO deleteTask
 
   render() {
@@ -60,10 +65,10 @@ export class ToDoList extends LitElement {
           <input
             type="text"
             placeholder="Add new task"
-            value="${this.newTask}"
+            .value="${this.newTask}"
             @input="${(e: any) => (this.newTask = e.target.value)}"
           />
-          <button>Add</button>
+          <button @click="${this.addTask}">Add</button>
         </div>
         <ul>
           ${this.tasks.map(
