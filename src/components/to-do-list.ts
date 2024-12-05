@@ -48,6 +48,11 @@ export class ToDoList extends LitElement {
       border: none;
     }
   `;
+  
+  constructor() {
+    super();
+    this.loadTasksFromLocalStorage();
+  }
 
   addTask() {
     if (this.newTask.trim() !== "") {
