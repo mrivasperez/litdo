@@ -3,8 +3,8 @@ import { customElement, property } from "lit/decorators.js";
 
 @customElement("to-do-list")
 export class ToDoList extends LitElement {
-  @property({ type: Array }) tasks: string[] = ["Brush teeth", "Wash dishes"];
-  @property({ type: String }) newTask = "";
+  @property({ type: Array }) tasks: string[] = [];
+  @property({ type: String }) newTask: string = "";
 
   static styles = css`
     .container {
@@ -49,8 +49,25 @@ export class ToDoList extends LitElement {
     }
   `;
 
-  // TODO addTask
-  // TODO deleteTask
+  addTask() {
+    if (this.newTask.trim() !== "") {
+      this.tasks = [...this.tasks, this.newTask.trim()];
+      this.newTask = "";
+    }
+  }
+
+  deleteTask(index: number) {
+    this.tasks = [
+      ...this.tasks.slice(0, index),
+      ...this.tasks.slice(index + 1)
+    ];
+  }
+
+  handleKeyPress(event: KeyboardEvent) {
+    if (event.key === "Enter") {
+      this.addTask();
+    }
+  }
 
   render() {
     return html`
@@ -60,17 +77,18 @@ export class ToDoList extends LitElement {
           <input
             type="text"
             placeholder="Add new task"
-            value="${this.newTask}"
+            .value="${this.newTask}"
             @input="${(e: any) => (this.newTask = e.target.value)}"
+            @keydown="${this.handleKeyPress}"
           />
-          <button>Add</button>
+          <button @click="${this.addTask}">Add</button>
         </div>
         <ul>
           ${this.tasks.map(
             (task, index) => html`
               <li key="${index}">
                 ${task}
-                <button>Delete</button>
+                <button @click="${() => this.deleteTask(index)}">Delete</button>
               </li>
             `
           )}
