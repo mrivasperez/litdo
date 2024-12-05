@@ -3,7 +3,7 @@ import { customElement, property } from "lit/decorators.js";
 
 @customElement("to-do-list")
 export class ToDoList extends LitElement {
-  @property({ type: Array }) tasks: string[] = ["Brush teeth", "Wash dishes"];
+  @property({ type: Array }) tasks: string[] = [];
   @property({ type: String }) newTask: string = "";
 
   static styles = css`
@@ -63,6 +63,12 @@ export class ToDoList extends LitElement {
     ];
   }
 
+  handleKeyPress(event: KeyboardEvent) {
+    if (event.key === "Enter") {
+      this.addTask();
+    }
+  }
+
   render() {
     return html`
       <div class="container">
@@ -73,6 +79,7 @@ export class ToDoList extends LitElement {
             placeholder="Add new task"
             .value="${this.newTask}"
             @input="${(e: any) => (this.newTask = e.target.value)}"
+            @keydown="${this.handleKeyPress}"
           />
           <button @click="${this.addTask}">Add</button>
         </div>
