@@ -49,12 +49,11 @@ export class ToDoList extends LitElement {
     }
   `;
 
-  
-
   addTask() {
     if (this.newTask.trim() !== "") {
       this.tasks = [...this.tasks, this.newTask.trim()];
       this.newTask = "";
+      this.saveTasksToLocalStorage();
     }
   }
 
@@ -63,6 +62,7 @@ export class ToDoList extends LitElement {
       ...this.tasks.slice(0, index),
       ...this.tasks.slice(index + 1)
     ];
+    this.saveTasksToLocalStorage();
   }
 
   handleKeyPress(event: KeyboardEvent) {
