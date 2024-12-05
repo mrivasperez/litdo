@@ -48,11 +48,17 @@ export class ToDoList extends LitElement {
       border: none;
     }
   `;
+  
+  constructor() {
+    super();
+    this.loadTasksFromLocalStorage();
+  }
 
   addTask() {
     if (this.newTask.trim() !== "") {
       this.tasks = [...this.tasks, this.newTask.trim()];
       this.newTask = "";
+      this.saveTasksToLocalStorage();
     }
   }
 
@@ -61,11 +67,23 @@ export class ToDoList extends LitElement {
       ...this.tasks.slice(0, index),
       ...this.tasks.slice(index + 1)
     ];
+    this.saveTasksToLocalStorage();
   }
 
   handleKeyPress(event: KeyboardEvent) {
     if (event.key === "Enter") {
       this.addTask();
+    }
+  }
+
+  saveTasksToLocalStorage() {
+    localStorage.setItem("tasks", JSON.stringify(this.tasks));
+  }
+
+  loadTasksFromLocalStorage() {
+    const storedTasks = localStorage.getItem("tasks");
+    if (storedTasks) {
+      this.tasks = JSON.parse(storedTasks);
     }
   }
 
