@@ -1,4 +1,5 @@
 # Litdo
+> [📖 View Tutorial ](https://www.linkedin.com/pulse/building-to-do-list-application-lit-miguel-rivas-perez-df8ac/?trackingId=uguu3b1oSl6kNwMN0ZTRVw%3D%3D)
 
 A simple to-do list application built using [Lit](https://github.com/lit/lit/), a lightweight and performant web component library. It showcases the ease of building Single-Page Applications (SPAs) with Lit. To learn more about Lit, visit https://lit.dev/.
 
